@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  font-family: "poppins";
+  margin: 0;
+  padding: 0;
+}
+#root {
+  height: 100%;
+}
+.Toastify__toast-container {
+  background-color: transparent !important; /* Override the background color */
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loader {
+  animation: spin 1s linear infinite;
+  border-color: #235552;
+  border-top-color: transparent;
+}
