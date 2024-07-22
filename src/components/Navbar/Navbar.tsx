@@ -53,7 +53,7 @@ const NavBar = () => {
 
                 <div className={`absolute inset-x-0 z-20 w-full px-6 py-4 lg:hidden transition-all duration-300 ease-in-out bg-[rgb(4,48,47)] md:bg-transparent md:relative md:w-auto ${isLogoMenuOpen ? 'translate-x-0 opacity-100' : 'opacity-0 md:opacity-100 -translate-x-full md:translate-x-0'}`}>
                     <div className="flex flex-col md:flex-row md:mx-6">
-                        <Link className="my-2 text-gray-200 transition-colors duration-300 transform hover:text-[#1c857e] md:mx-4 md:my-0" to="/">Simplicior <br />
+                        <Link className="my-2 text-gray-200 transition-colors duration-300 transform hover:text-[#1c857e] md:mx-4 md:my-0" to="/">Qiewcode <br />
                             <span className='px-4'>Oui sommes nous?</span></Link>
                         <Link className="my-2 text-gray-200 transition-colors duration-300 transform hover:text-[#1c857e] md:mx-4 md:my-0" to="/#contact">Nous contacter</Link>
                         {/* <a className="my-2 text-gray-200 transition-colors duration-300 transform hover:text-[#1c857e] md:mx-4 md:my-0" href="#blog">Blog</a> */}
