@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 const Success = () => {
     const frontEndUrl = 'https://simplicio-fn.netlify.app';
-    const BACKEND_URL = 'https://simplicio-api-nbop.onrender.com'
+    const BACKEND_URL = 'https://simplicio-backend-tvl39.ondigitalocean.app'
     const churchId = localStorage.getItem('churchId');
     const location = useLocation();
 

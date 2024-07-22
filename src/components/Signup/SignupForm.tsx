@@ -40,7 +40,7 @@ const SignupForm: React.FC = () => {
         }
 
         try {
-            const backendUrl = `https://simplicio-api-nbop.onrender.com`
+            const backendUrl = `https://simplicio-backend-tvl39.ondigitalocean.app`
             const response = await axios.post(`${backendUrl}/auth/signup`, formData);
             console.log(response);
 

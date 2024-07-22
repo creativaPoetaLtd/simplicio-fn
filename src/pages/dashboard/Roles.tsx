@@ -11,7 +11,7 @@ interface User {
 }
 
 const Roles = () => {
-    const BACKEND_URL = `https://simplicio-api-nbop.onrender.com`;
+    const BACKEND_URL = `https://simplicio-backend-tvl39.ondigitalocean.app`;
     const ITEMS_PER_PAGE = 10;
 
     const [allUsers, setAllUsers] = useState<User[]>([]);

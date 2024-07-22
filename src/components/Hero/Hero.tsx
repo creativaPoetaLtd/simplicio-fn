@@ -60,7 +60,7 @@ const customSelectStyles: StylesConfig = {
 
 const Hero = () => {
     const { id } = useParams();
-    const BACKEND_URL = `https://simplicio-api-nbop.onrender.com`;
+    const BACKEND_URL = `https://simplicio-backend-tvl39.ondigitalocean.app`;
     const savedBgColor: any = localStorage.getItem('bgColor');
 
     const [church, setChurch] = useState<Church | null>(null);

@@ -9,7 +9,7 @@ interface Donation {
     date: string;
 }
 const Transaction: React.FC = () => {
-    const BACKEND_URL = "https://simplicio-api-nbop.onrender.com";
+    const BACKEND_URL = "https://simplicio-backend-tvl39.ondigitalocean.app";
     const [donations, setDonations] = useState<Donation[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     useEffect(() => {

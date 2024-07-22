@@ -10,7 +10,7 @@ const ResetPasswordForm: React.FC = () => {
         confirmNewPassword: ''
     });
 
-    const backendUrl = 'https://simplicio-api-nbop.onrender.com';
+    const backendUrl = 'https://simplicio-backend-tvl39.ondigitalocean.app';
     const location = useLocation();
     const navigate = useNavigate();
     const queryParams = new URLSearchParams(location.search);
