@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import LogoImage from '/images/Logo.jpg';
+import LogoImage from '/images/QiewcodeLogo.png';
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +24,7 @@ const NavBar = () => {
                 <div className="flex items-center justify-between">
                     <div className="">
                         <a href="#" onClick={toggleLogoMenu}>
-                            <img src={LogoImage} alt="Simplicio Logo" className="h-10 cursor-pointer" />
+                            <img src={LogoImage} alt="Simplicio Logo" className="h-28 cursor-pointer" />
                         </a>
                     </div>
                     {/* Mobile menu button */}

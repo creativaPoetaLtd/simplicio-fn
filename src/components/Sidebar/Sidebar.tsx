@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { BiSolidReport } from "react-icons/bi";
 import { IoIosLogOut } from "react-icons/io";
 import { decodedToken } from "../../utils/ProtectedRoute";
-import LogoImage from '/images/Logo.jpg'
+import LogoImage from '/images/logo.png'
 interface Menu {
     name: string;
     link: string;
@@ -63,7 +63,7 @@ const Sidebar: React.FC = () => {
                     {/* Logo */}
                     {open && (
                         <Link to="/">
-                            <img src={LogoImage} alt="Simplicio Logo" className="h-10" /> {/* Adjust the height as per your logo size */}
+                            <img src={LogoImage} alt="Simplicio Logo" className="h-20" /> {/* Adjust the height as per your logo size */}
 
                         </Link>
                     )}

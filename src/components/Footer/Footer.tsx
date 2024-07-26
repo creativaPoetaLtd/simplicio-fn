@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import LogoImage from '/images/logo.png';
 
 const Footer = () => {
     return (
@@ -6,7 +7,11 @@ const Footer = () => {
             <div className="mt-auto w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 lg:pt-20 mx-auto">
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
                     <div className="col-span-1">
-                        <h4 className="font-semibold text-gray-100">Qiewcode</h4>
+                        <div className="">
+                            <a href="#">
+                                <img src={LogoImage} alt="Simplicio Logo" className="h-30 cursor-pointer" />
+                            </a>
+                        </div>
                         <div className="mt-3 grid space-y-3">
                             <p><Link className="inline-flex gap-x-2 text-gray-400 hover:text-gray-200" to="/">Oui Sommes nous</Link></p>
                             <p><Link className="inline-flex gap-x-2 text-gray-400 hover:text-gray-200" to="/#about">Nos services</Link></p>
@@ -14,7 +19,7 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    <div className="col-span-2">
+                    <div className="col-span-2 mt-100">
                         <h4 className="font-semibold text-gray-100">+32 487618887</h4>
                         <h4 className="font-semibold text-gray-100">contact@Qiewcode.be</h4>
                         <form>
