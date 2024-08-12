@@ -68,6 +68,7 @@ const Hero = () => {
     const [selectCharity, setSelectedCharity] = useState<any>(null); // Change the type to any
     const [isLoading, setIsLoading] = useState<boolean>(true); // Initialize loading state
     const [name, setName] = useState<string>('');
+    const [email, setEmail] = useState<string>('')
     const [showConfirmPage, setConfirmPage] = useState(false);
 
     useEffect(() => {
@@ -107,6 +108,9 @@ const Hero = () => {
     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
     };
+    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(event.target.value);
+    }
 
     const handleDonationSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -131,6 +135,7 @@ const Hero = () => {
                     iban={church?.iban || ''}
                     charityAction={selectCharity.value}
                     name={name || 'Anonyme'}
+                    email={email || ''}
                     onBack={() => {
                         setConfirmPage(false);
                     }}
@@ -209,6 +214,17 @@ const Hero = () => {
                                                 className="w-[100%] mb-4 lg:w-[100%] px-4 py-2 text-[gray-700] bg-[#235552] border-2 text-white border-[#ffdb4f] rounded-md focus:ring-opacity-40 focus:outline-none"
                                             />
                                         </div>
+                                        <div className="flex lg:w-[80%] mt-4 justify-between items-center">
+                                            <input
+                                                type="email"
+                                                id="email"
+                                                value={email}
+                                                onChange={handleEmailChange}
+                                                placeholder="Votre email (optionnel)"
+                                                className="w-[100%] mb-4 lg:w-[100%] px-4 py-2 text-[gray-700] bg-[#235552] border-2 text-white border-[#ffdb4f] rounded-md focus:ring-opacity-40 focus:outline-none"
+                                            />
+                                        </div>
+
                                         <button
                                             type="submit"
                                             className={`w-[80%] lg:w-[80%] self-center lg:self-start px-5 py-2 mt-6 text-md font-bold tracking-wider text-[#235552] uppercase transition-colors duration-300 transform bg-[#E3E3E3] rounded-full hover:bg-[#235552] hover:text-white hover:border-2 focus:outline-none focus:bg-blue-500 ${window.innerWidth <= 640 ? 'sm:self-center' : ''

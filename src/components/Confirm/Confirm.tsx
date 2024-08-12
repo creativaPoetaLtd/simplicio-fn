@@ -10,10 +10,11 @@ interface ConfirmProps {
     iban: string;
     name: string;
     charityAction: string,
+    email: string;
     onBack: () => void;
 }
 
-const Confirm: React.FC<ConfirmProps> = ({ churchImage, donationAmount, churchTitle, name, iban, charityAction, onBack }) => {
+const Confirm: React.FC<ConfirmProps> = ({ churchImage, donationAmount, churchTitle, name, email, iban, charityAction, onBack }) => {
 
     const BACKEND_URL = `https://simplicio-backend-tvl39.ondigitalocean.app`;
     const { id }: any = useParams();
@@ -21,6 +22,18 @@ const Confirm: React.FC<ConfirmProps> = ({ churchImage, donationAmount, churchTi
     const handleConfirm = async () => {
         try {
             localStorage.setItem("churchId", id);
+            // Validate the email format before sending
+            const validateEmail = (email: any) => {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            };
+
+            if (!validateEmail(email)) {
+                console.error("Invalid email format");
+                toast.error("Invalid email format");
+                return;
+            }
+
             const response = await fetch(`${BACKEND_URL}/donate`, {
                 method: "POST",
                 headers: {
@@ -30,7 +43,8 @@ const Confirm: React.FC<ConfirmProps> = ({ churchImage, donationAmount, churchTi
                     churchId: id,
                     amount: donationAmount,
                     charityAction: charityAction,
-                    name: name
+                    name: name,
+                    email: email
                 })
             });
 
@@ -42,11 +56,12 @@ const Confirm: React.FC<ConfirmProps> = ({ churchImage, donationAmount, churchTi
                 console.error("Failed to make donations");
                 toast.error("Failed to make donations");
             }
-        } catch (error: any) {
+        } catch (error) {
             console.error("Error:", error);
             toast.error("An error occurred while making the donation");
         }
     };
+
 
     return (
         <header className='bg-gradient-to-br from-[rgb(4,48,47)] via-[rgba(8,57,54,1)] to-[rgba(4,48,47,1)] min-h-screen'>
@@ -59,6 +74,10 @@ const Confirm: React.FC<ConfirmProps> = ({ churchImage, donationAmount, churchTi
                 <div className="flex justify-between mb-2 mt-8">
                     <strong className="text-white text-lg font-thin">Nom</strong>
                     <p className="text-white">{name}</p>
+                </div>
+                <div className="flex justify-between mb-2 mt-8">
+                    <strong className="text-white text-lg font-thin">email</strong>
+                    <p className="text-white">{email}</p>
                 </div>
                 <div className="flex justify-between mb-2 mt-8">
                     <strong className="text-white text-lg font-thin">Montant</strong>
