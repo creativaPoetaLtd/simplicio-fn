@@ -16,7 +16,7 @@ interface ConfirmProps {
 
 const Confirm: React.FC<ConfirmProps> = ({ churchImage, donationAmount, churchTitle, name, email, iban, charityAction, onBack }) => {
 
-    const BACKEND_URL = `https://simplicio-backend-tvl39.ondigitalocean.app`;
+    const BACKEND_URL = `https://simplicio-api-nbop.onrender.com`;
     const { id }: any = useParams();
 
     const handleConfirm = async () => {

@@ -14,7 +14,7 @@ const ForgotPasswordForm: React.FC = () => {
             [e.target.name]: e.target.value,
         });
     };
-    const backendUrl = 'https://simplicio-backend-tvl39.ondigitalocean.app';
+    const backendUrl = 'https://simplicio-api-nbop.onrender.com';
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {

@@ -17,7 +17,7 @@ const LoginForm: React.FC = () => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const backendUrl = `https://simplicio-backend-tvl39.ondigitalocean.app`;
+            const backendUrl = `https://simplicio-api-nbop.onrender.com`;
             const response = await axios.post(`${backendUrl}/auth/login`, formData);
             const { token } = response.data;
             localStorage.setItem('token', token);

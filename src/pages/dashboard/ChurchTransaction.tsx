@@ -16,7 +16,7 @@ interface ChurchDonation {
 }
 
 const ChurchTransaction: React.FC = () => {
-    const BACKEND_URL = "https://simplicio-backend-tvl39.ondigitalocean.app";
+    const BACKEND_URL = "https://simplicio-api-nbop.onrender.com";
     const [churchDonations, setChurchDonations] = useState<ChurchDonation[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);

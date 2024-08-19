@@ -28,7 +28,7 @@ interface User {
 const ITEMS_PER_PAGE = 10;
 
 const Churches: React.FC = () => {
-    const BACKEND_URL = `https://simplicio-backend-tvl39.ondigitalocean.app`;
+    const BACKEND_URL = `https://simplicio-api-nbop.onrender.com`;
     const [currentPage, setCurrentPage] = useState(1);
     const [churches, setChurches] = useState<Church[]>([]);
     const [allUsers, setAllUsers] = useState<User[]>([]);

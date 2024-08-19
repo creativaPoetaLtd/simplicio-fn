@@ -17,7 +17,7 @@ interface Church {
 
 const ContactForm = ({ savedBgColor }: any) => {
     const { id } = useParams();
-    const BACKEND_URL = `https://simplicio-backend-tvl39.ondigitalocean.app`;
+    const BACKEND_URL = `https://simplicio-api-nbop.onrender.com`;
     const [church, setChurch] = useState<Church | null>(null);
     const [formData, setFormData] = useState({
         user_name: '',
