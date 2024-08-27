@@ -56,6 +56,8 @@ const Messages: React.FC<MessagesProps> = ({ contactEmail, contactName, onBackCl
                 })
             });
             const result = await response.json();
+            console.log("res", result);
+
             setNewMessage("");
             await fetchMessages();
         } catch (error) {

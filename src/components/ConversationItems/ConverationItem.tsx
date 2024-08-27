@@ -6,7 +6,7 @@ interface ConversationItemProps {
     onClick: () => void; // Added onClick prop
 }
 
-const ConversationItem: React.FC<ConversationItemProps> = ({ name, email, onClick }) => {
+const ConversationItem: React.FC<ConversationItemProps> = ({ name, onClick }) => {
     return (
         <div onClick={onClick}>
             <div className="conversation-item p-1 bg-[#004d00] hover:bg-[#003300] m-1 rounded-md">
