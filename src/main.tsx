@@ -21,6 +21,7 @@ import Settings from './pages/dashboard/Settings';
 import SuccessPage from './pages/SuccessPage';
 import Transaction from './pages/dashboard/Transaction';
 import ChurchTransaction from './pages/dashboard/ChurchTransaction';
+import Message from './pages/Message';
 
 
 
@@ -30,6 +31,7 @@ ReactDOM.render(
       <Routes>
         <Route path="/church/:id" element={<ChurchHomePage />} />
         <Route path="/" element={<App />} />
+        <Route path='/message' element={<Message />} />
         <Route path="/login" element={<Login />} />
         <Route path='/success' element={<SuccessPage />} />
         <Route path="/signup" element={<Signup />} />

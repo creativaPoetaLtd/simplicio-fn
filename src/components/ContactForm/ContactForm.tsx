@@ -1,18 +1,19 @@
 import { SlLocationPin } from "react-icons/sl";
 import { IoIosCall } from "react-icons/io";
 import { BiLogoGmail } from "react-icons/bi";
-// import { BsTwitterX } from "react-icons/bs";
-// import { FaLinkedin, FaInstagram } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import emailjs from 'emailjs-com';
 import toast from "react-hot-toast";
 
 interface Church {
     _id: string;
-    churchTel: string;
+    name: string;
     churchEmail: string;
+    churchTel: string;
     churchLocation: string;
+    user: {
+        email: string; // Manager's email
+    };
 }
 
 const ContactForm = ({ savedBgColor }: any) => {
@@ -55,26 +56,43 @@ const ContactForm = ({ savedBgColor }: any) => {
         });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         // Validate form data
-        if (!formData.user_name || !formData.user_email || !formData.user_subject || !formData.message) {
-            toast.error('All fields are required.');
+        if (!formData.message) {
+            toast.error('Please fill in the message filled');
             return;
         }
 
-        emailjs.send(
-            'service_cdaavuo',
-            'template_6jm6d0b',
-            formData,
-            'user_3iCFvzpWjdxqQaJMi15mx'
-        ).then((result: any) => {
-            toast.success('Message sent successfully', result.status);
-        }, (error) => {
+        try {
+            const response = await fetch(`${BACKEND_URL}/message/send-message`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `${localStorage.getItem('token')}`,// assuming token is stored in local storage
+                },
+                body: JSON.stringify({
+                    receiverEmail: church?.user.email, // Send to the manager's email
+                    message: formData.message
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to send message");
+            }
+
+            toast.success('Message sent successfully');
+            setFormData({
+                user_name: '',
+                user_email: '',
+                user_subject: '',
+                message: ''
+            });
+        } catch (error) {
             console.log("Error sending message", error);
             toast.error('Message sending failed');
-        });
+        }
     };
 
     return (
@@ -105,18 +123,7 @@ const ContactForm = ({ savedBgColor }: any) => {
                         <div className="w-full px-8 py-10 mx-auto overflow-hidden bg-[rgb(4,48,47)] shadow-2xl rounded-xl lg:max-w-xl">
                             <h1 className="text-xl font-medium text-white">Formulaire de contact</h1>
                             <form className="mt-4" onSubmit={handleSubmit}>
-                                <div className="flex-1">
-                                    <label className="block mb-2 text-sm text-white">Nom et prénom</label>
-                                    <input type="text" name="user_name" value={formData.user_name} onChange={handleChange} placeholder="John Doe" className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring" />
-                                </div>
-                                <div className="flex-1 mt-6">
-                                    <label className="block mb-2 text-sm text-white">Adresse e-mail</label>
-                                    <input type="email" name="user_email" value={formData.user_email} onChange={handleChange} placeholder="johndoe@example.com" className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring" />
-                                </div>
-                                <div className="flex-1 mt-6">
-                                    <label className="block mb-2 text-sm text-white">Sujet</label>
-                                    <input type="text" name="user_subject" value={formData.user_subject} onChange={handleChange} placeholder="Entrez votre sujet" className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring" />
-                                </div>
+
                                 <div className="w-full mt-6">
                                     <label className="block mb-2 text-sm text-white">Message</label>
                                     <textarea name="message" value={formData.message} onChange={handleChange} className="block w-full h-32 px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring" placeholder="Message"></textarea>

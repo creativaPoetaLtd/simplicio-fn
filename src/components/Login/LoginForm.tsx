@@ -25,10 +25,10 @@ const LoginForm: React.FC = () => {
             const userRole = decodedToken.role;
             if (userRole === 'admin' || userRole === 'manager') {
                 toast.success('Login successful');
-                window.location.href = '/dashboard'; 
+                window.location.href = '/dashboard';
             } else {
                 toast.success('Login successful');
-                window.location.href = '/'; 
+                window.location.href = '/';
             }
         } catch (error: any) {
             const errorMessage = error.response?.data?.error || "Invalid email or password";
