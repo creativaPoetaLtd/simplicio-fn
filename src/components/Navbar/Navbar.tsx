@@ -1,14 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import LogoImage from '/images/QiewcodeLogo.png';
+import { FaUserCircle } from 'react-icons/fa';
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isLogoMenuOpen, setIsLogoMenuOpen] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            setIsAuthenticated(true);
+        }
+    }, []);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
-        if (isLogoMenuOpen === true) {
+        if (isLogoMenuOpen) {
             setIsLogoMenuOpen(false);
             setIsOpen(false);
         }
@@ -16,6 +26,10 @@ const NavBar = () => {
 
     const toggleLogoMenu = () => {
         setIsLogoMenuOpen(!isLogoMenuOpen);
+    };
+
+    const toggleProfileMenu = () => {
+        setIsProfileMenuOpen(!isProfileMenuOpen);
     };
 
     return (
@@ -56,8 +70,31 @@ const NavBar = () => {
                         <Link className="my-2 text-gray-200 transition-colors duration-300 transform hover:text-[#1c857e] md:mx-4 md:my-0" to="/">Qiewcode <br />
                             <span className='px-4'>Oui sommes nous?</span></Link>
                         <Link className="my-2 text-gray-200 transition-colors duration-300 transform hover:text-[#1c857e] md:mx-4 md:my-0" to="/#contact">Nous contacter</Link>
-                        {/* <a className="my-2 text-gray-200 transition-colors duration-300 transform hover:text-[#1c857e] md:mx-4 md:my-0" href="#blog">Blog</a> */}
                     </div>
+                </div>
+
+                {/* Profile/Login Button */}
+                <div className="md:ml-4 relative">
+                    {isAuthenticated ? (
+                        <div className="relative">
+                            <button onClick={toggleProfileMenu} className="flex items-center text-gray-200 focus:outline-none">
+                                <FaUserCircle className="text-4xl mr-2" />
+                                <span className="text-lg">Profile</span>
+                            </button>
+                            {/* Dropdown for profile */}
+                            {isProfileMenuOpen && (
+                                <div className="absolute right-0 mt-2 py-2 w-56 bg-white  z-30 rounded-lg shadow-xl">
+                                    <Link to="/message" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">message</Link>
+                                    <Link to="/settings" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Settings</Link>
+                                    <button onClick={() => { localStorage.removeItem('token'); setIsAuthenticated(false); }} className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</button>
+                                </div>
+                            )}
+                        </div>
+                    ) : (
+                        <Link to="/login" className="text-gray-200 bg-[#1c857e] px-6 py-3 rounded-lg hover:bg-[#166e64] transition duration-300">
+                            Login
+                        </Link>
+                    )}
                 </div>
             </div>
         </nav>

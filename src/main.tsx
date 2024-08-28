@@ -31,7 +31,11 @@ ReactDOM.render(
       <Routes>
         <Route path="/church/:id" element={<ChurchHomePage />} />
         <Route path="/" element={<App />} />
-        <Route path='/message' element={<Message />} />
+        <Route path='/message' element={
+          isAuthenticated() ? (<Message />) : (
+            <Navigate to="/login" replace />
+          )
+        } />
         <Route path="/login" element={<Login />} />
         <Route path='/success' element={<SuccessPage />} />
         <Route path="/signup" element={<Signup />} />
@@ -43,7 +47,7 @@ ReactDOM.render(
             isAuthenticated() ? (
               <Dashboard />
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/login" replace />
             )
           }
         >

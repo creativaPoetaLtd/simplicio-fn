@@ -1,5 +1,6 @@
-
 import { jwtDecode } from 'jwt-decode';
+import toast from 'react-hot-toast';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const decodedToken = (token: string) => {
     try {
@@ -12,7 +13,9 @@ export const decodedToken = (token: string) => {
 
 export const isAuthenticated = () => {
     const token = localStorage.getItem('token');
+
     if (!token) {
+        toast.error('Please log in to continue.');
         return false; // No token found
     }
 
@@ -22,15 +25,18 @@ export const isAuthenticated = () => {
 
         // Check token expiration
         if (decodedToken.exp < currentTime) {
+            toast.error('Session expired, please log in again.');
             return false; // Token expired
         }
 
         return true; // Valid token
     } catch (error) {
+        toast.error('Invalid token, please log in again.');
         console.error('Error parsing token:', error);
         return false; // Token is invalid
     }
 };
+
 
 export const isAdmin = () => {
     const token = localStorage.getItem('token');

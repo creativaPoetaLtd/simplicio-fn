@@ -20,6 +20,7 @@ const Messages: React.FC<MessagesProps> = ({ contactEmail, contactName, onBackCl
     const [messages, setMessages] = useState<Message[]>([]);
     const [newMessage, setNewMessage] = useState<string>("");
     const BACKEN_URL = `https://simplicio-api-nbop.onrender.com`;
+
     const fetchMessages = async () => {
         const token = localStorage.getItem('token');
         try {
@@ -39,12 +40,18 @@ const Messages: React.FC<MessagesProps> = ({ contactEmail, contactName, onBackCl
 
     useEffect(() => {
         fetchMessages();
+
+        // Set up polling to fetch messages every 5 seconds
+        const interval = setInterval(fetchMessages, 5000);
+
+        // Clear interval on component unmount
+        return () => clearInterval(interval);
     }, [contactEmail]);
 
     const sendMessage = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch('https://simplicio-api-nbop.onrender.com/message/send-message', {
+            const response = await fetch(`${BACKEN_URL}/message/send-message`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -59,7 +66,7 @@ const Messages: React.FC<MessagesProps> = ({ contactEmail, contactName, onBackCl
             console.log("res", result);
 
             setNewMessage("");
-            await fetchMessages();
+            await fetchMessages(); // Fetch messages after sending
         } catch (error) {
             console.error("Error sending message:", error);
         }
