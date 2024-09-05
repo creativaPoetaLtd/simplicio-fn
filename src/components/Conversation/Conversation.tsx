@@ -44,9 +44,9 @@ const Conversation: React.FC<ConversationProps> = ({ setContactEmail, setContact
             {conversations.map((item) => (
                 <ConversationItem
                     key={item.email}
-                    name={item.name}
+                    name={item.email}
                     email={item.email}
-                    onClick={() => handleItemClick(item.name, item.email)} // Handle click
+                    onClick={() => handleItemClick(item.email, item.email)} // Handle click
                 />
             ))}
         </div>

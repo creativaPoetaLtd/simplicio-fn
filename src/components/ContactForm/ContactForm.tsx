@@ -23,7 +23,6 @@ const ContactForm = ({ savedBgColor }: any) => {
     const [formData, setFormData] = useState({
         user_name: '',
         user_email: '',
-        user_subject: '',
         message: ''
     });
 
@@ -61,21 +60,35 @@ const ContactForm = ({ savedBgColor }: any) => {
 
         // Validate form data
         if (!formData.message) {
-            toast.error('Please fill in the message filled');
+            toast.error('Please fill in the message field');
             return;
         }
 
         try {
+            const token = localStorage.getItem('token');
+            const messagePayload: any = {
+                receiverEmail: church?.user.email, // Send to the manager's email
+                message: formData.message
+            };
+
+            // If token is not available, include user's email and name in the payload
+            if (!token) {
+                messagePayload['senderName'] = formData.user_name;
+                messagePayload['senderEmail'] = formData.user_email;
+
+                if (!formData.user_name || !formData.user_email) {
+                    toast.error('Please provide your name and email');
+                    return;
+                }
+            }
+
             const response = await fetch(`${BACKEND_URL}/message/send-message`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `${localStorage.getItem('token')}`,// assuming token is stored in local storage
+                    Authorization: token ? `Bearer ${token}` : '', // Add token if available
                 },
-                body: JSON.stringify({
-                    receiverEmail: church?.user.email, // Send to the manager's email
-                    message: formData.message
-                })
+                body: JSON.stringify(messagePayload)
             });
 
             if (!response.ok) {
@@ -86,7 +99,6 @@ const ContactForm = ({ savedBgColor }: any) => {
             setFormData({
                 user_name: '',
                 user_email: '',
-                user_subject: '',
                 message: ''
             });
         } catch (error) {
@@ -123,12 +135,45 @@ const ContactForm = ({ savedBgColor }: any) => {
                         <div className="w-full px-8 py-10 mx-auto overflow-hidden bg-[rgb(4,48,47)] shadow-2xl rounded-xl lg:max-w-xl">
                             <h1 className="text-xl font-medium text-white">Formulaire de contact</h1>
                             <form className="mt-4" onSubmit={handleSubmit}>
+                                {/* For unauthenticated users, show name and email input fields */}
+                                {!localStorage.getItem('token') && (
+                                    <>
+                                        <div className="w-full mt-6">
+                                            <label className="block mb-2 text-sm text-white">Nom</label>
+                                            <input
+                                                type="text"
+                                                name="user_name"
+                                                value={formData.user_name}
+                                                onChange={handleChange}
+                                                className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
+                                                placeholder="Nom"
+                                            />
+                                        </div>
+                                        <div className="w-full mt-6">
+                                            <label className="block mb-2 text-sm text-white">Email</label>
+                                            <input
+                                                type="email"
+                                                name="user_email"
+                                                value={formData.user_email}
+                                                onChange={handleChange}
+                                                className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
+                                                placeholder="Email"
+                                            />
+                                        </div>
+                                    </>
+                                )}
 
                                 <div className="w-full mt-6">
                                     <label className="block mb-2 text-sm text-white">Message</label>
-                                    <textarea name="message" value={formData.message} onChange={handleChange} className="block w-full h-32 px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring" placeholder="Message"></textarea>
+                                    <textarea
+                                        name="message"
+                                        value={formData.message}
+                                        onChange={handleChange}
+                                        className="block w-full h-32 px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
+                                        placeholder="Message"
+                                    ></textarea>
                                 </div>
-                                <button type="submit" className="w-full px-6 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#235552] rounded-md hover:bg-[#32827c] ">
+                                <button type="submit" className="w-full px-6 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#235552] rounded-md hover:bg-[#32827c]">
                                     entrer en contact
                                 </button>
                             </form>

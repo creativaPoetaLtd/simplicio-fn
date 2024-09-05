@@ -20,7 +20,7 @@ interface Church {
 }
 
 const Church: React.FC = () => {
-    const BACKEND_URL = "https://simplicio-api-nbop.onrender.com";
+    const BACKEND_URL = "http://localhost:4000";
     const [churches, setChurches] = useState<Church[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [selectedChurch, setSelectedChurch] = useState<Church | null>(null); // State to hold selected church details

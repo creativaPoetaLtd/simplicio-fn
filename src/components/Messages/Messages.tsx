@@ -72,6 +72,12 @@ const Messages: React.FC<MessagesProps> = ({ contactEmail, contactName, onBackCl
         }
     };
 
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            sendMessage();
+        }
+    };
+
     return (
         <div className="flex-grow h-full flex flex-col">
             {/* Header */}
@@ -126,6 +132,7 @@ const Messages: React.FC<MessagesProps> = ({ contactEmail, contactName, onBackCl
                     placeholder="Type a message"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
+                    onKeyPress={handleKeyPress}
                 />
                 <button
                     className="flex items-center justify-center w-12 h-12 bg-green-500 text-white rounded-r-md"
